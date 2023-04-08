@@ -1,0 +1,44 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media/
+
+# Python
+*.pyo
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+dist/
+build/
+docs/_build/
+*.pid
+*.spec
+
+# Virtual environments
+.venv
+.venv/
+venv/
+venv.bak/
+env/
+.virtualenv/
+.virtualenvs/
+.pyenv/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime-project
+*.sublime-workspace
+*.tm_properties
+
+# OS-specific files
+.DS_Store
+.Thumbs.db
