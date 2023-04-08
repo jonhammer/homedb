@@ -52,3 +52,14 @@ superuser:
 format:
 	$(POETRY) run isort .
 	$(POETRY) run black .
+
+.PHONY: clean
+clean:
+	rm -rf .venv
+	rm -rf .pytest_cache
+	rm -rf .coverage
+	rm -rf .mypy_cache
+	rm -rf .cache
+	rm -rf .eggs
+	rm -rf .tox
+	rm -rf .ruff_cache
