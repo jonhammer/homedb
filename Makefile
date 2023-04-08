@@ -2,7 +2,7 @@
 
 # Variables
 POETRY = poetry
-MANAGE = $(POETRY) run python manage.py
+MANAGE = $(POETRY) run python homedb/manage.py
 DJANGO_SETTINGS_MODULE ?= homedb.settings
 export DJANGO_SETTINGS_MODULE
 
