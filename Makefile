@@ -19,6 +19,7 @@ help:
 	@echo "  test         - Run the test suite"
 	@echo "  lint         - Run linters"
 	@echo "  superuser    - Create a Django superuser"
+	@echo "  format       - Run Black and isort"
 
 .PHONY: install
 install:
