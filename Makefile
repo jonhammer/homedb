@@ -39,7 +39,7 @@ runserver:
 
 .PHONY: test
 test:
-	$(MANAGE) test
+	$(MANAGE) test homedb/
 
 .PHONY: lint
 lint:

@@ -67,7 +67,8 @@ class LightConfiguration(models.Model):
     room = models.OneToOneField(Room, on_delete=models.CASCADE, null=True, blank=True)
     timer = models.IntegerField()  # In minutes
     sun_elevation_cutoff = models.FloatField()
-    time_of_day_cutoff = models.TimeField()
+    before_time_cutoff = models.TimeField()
+    after_time_cutoff = models.TimeField()
     lux_cutoff = models.FloatField()
     brightness = models.FloatField()
 
@@ -78,3 +79,12 @@ class LightConfiguration(models.Model):
             return f"Light Configuration for Room: {self.room.name}"
         else:
             return f"Unassociated Light Configuration (ID: {self.pk})"
+
+
+class LightBlockingDevice(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    state = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"Light Blocking Device: {self.device.name} in Room: {self.room.name}"
