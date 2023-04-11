@@ -33,36 +33,38 @@ class DeviceType(models.Model):
 
 class Device(models.Model):
     DEVICE_PROTOCOL_CHOICES = [
-        ('', 'Not specified'),
-        ('zigbee', 'Zigbee'),
-        ('zwave', 'Z-Wave'),
-        ('ip', 'IP'),
-        ('other', 'Other'),
+        ("", "Not specified"),
+        ("zigbee", "Zigbee"),
+        ("zwave", "Z-Wave"),
+        ("ip", "IP"),
+        ("other", "Other"),
     ]
     DEVICE_STATUS_CHOICES = [
-        ('commissioned', 'Commissioned'),
-        ('installed', 'Installed'),
-        ('storage', 'Storage'),
+        ("commissioned", "Commissioned"),
+        ("installed", "Installed"),
+        ("storage", "Storage"),
     ]
 
     name = models.CharField(max_length=255)
     device_type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
-    protocol = models.CharField(max_length=32, choices=DEVICE_PROTOCOL_CHOICES, blank=True, default='')
-    manufacturer = models.CharField(max_length=255, blank=True, default='')
-    model = models.CharField(max_length=255, blank=True, default='')
+    protocol = models.CharField(
+        max_length=32, choices=DEVICE_PROTOCOL_CHOICES, blank=True, default=""
+    )
+    manufacturer = models.CharField(max_length=255, blank=True, default="")
+    model = models.CharField(max_length=255, blank=True, default="")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    management_url = models.URLField(blank=True, default='')
-    home_assistant_url = models.URLField(blank=True, default='')
+    management_url = models.URLField(blank=True, default="")
+    home_assistant_url = models.URLField(blank=True, default="")
     status = models.CharField(max_length=32, choices=DEVICE_STATUS_CHOICES)
-    mac_address = models.CharField(max_length=255, blank=True, default='')
+    mac_address = models.CharField(max_length=255, blank=True, default="")
 
     def __str__(self):
         return self.name
 
 
 class LightConfiguration(models.Model):
-    area = models.ForeignKey(Area, on_delete=models.CASCADE, null=True, blank=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True)
+    area = models.OneToOneField(Area, on_delete=models.CASCADE, null=True, blank=True)
+    room = models.OneToOneField(Room, on_delete=models.CASCADE, null=True, blank=True)
     timer = models.IntegerField()  # In minutes
     sun_elevation_cutoff = models.FloatField()
     time_of_day_cutoff = models.TimeField()
@@ -70,9 +72,7 @@ class LightConfiguration(models.Model):
     brightness = models.FloatField()
 
     def __str__(self):
-        if self.area and self.room:
-            return f"Light Configuration for Area: {self.area.name}, Room: {self.room.name}"
-        elif self.area:
+        if self.area:
             return f"Light Configuration for Area: {self.area.name}"
         elif self.room:
             return f"Light Configuration for Room: {self.room.name}"
