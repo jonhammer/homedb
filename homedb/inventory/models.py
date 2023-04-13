@@ -159,8 +159,8 @@ class BrightnessConfig(models.Model):
 
     def save(self, *args, **kwargs):
         # Ensure start time is before end time
-        if self.start_time >= self.end_time:
-            raise ValidationError("Start time must be before end time.")
+        # if self.start_time >= self.end_time:
+        #     raise ValidationError("Start time must be before end time.")
 
         # Check for overlapping time periods
         overlapping_configs = BrightnessConfig.objects.filter(
