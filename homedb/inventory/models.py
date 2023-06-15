@@ -16,7 +16,8 @@ class House(models.Model):
 
 class Area(models.Model):
     """
-    Represents an area within a house, with a name and a reference to the house it belongs to.
+    Represents an area within a house, with a name
+    and a reference to the house it belongs to.
     """
 
     name = models.CharField(max_length=255)
@@ -28,7 +29,8 @@ class Area(models.Model):
 
 class Room(models.Model):
     """
-    Represents a room within an area, with a name and a reference to the area it belongs to.
+    Represents a room within an area, with a name and a reference
+    to the area it belongs to.
     """
 
     name = models.CharField(max_length=255)
@@ -51,7 +53,8 @@ class DeviceType(models.Model):
 
 class Device(models.Model):
     """
-    Represents a device in a room, with a name, device type, protocol, manufacturer, model, room,
+    Represents a device in a room, with a name, device type,
+    protocol, manufacturer, model, room,
     management URL, home assistant URL, status, and MAC address.
     """
 
@@ -87,9 +90,10 @@ class Device(models.Model):
 
 class LightConfig(models.Model):
     """
-    Represents a light configuration for either an area or a room, with timer, sun elevation,
-    time cutoffs, and lux cutoff. The configuration must be associated with either an area or
-    a room, but not both.
+    Represents a light configuration for either an area
+    or a room, with timer, sun elevation, time cutoffs,
+    and lux cutoff. The configuration must be associated
+    with either an area or a room, but not both.
     """
 
     area = models.OneToOneField(Area, on_delete=models.CASCADE, null=True, blank=True)
@@ -126,8 +130,9 @@ class LightConfig(models.Model):
 
 class BlockOffEntity(models.Model):
     """
-    Represents a block off entity associated with a light configuration. It has an entity name
-    and a block state, which by default is set to "on".
+    Represents a block off entity associated with a
+    light configuration. It has an entity name and a
+    block state, which by default is set to "on".
     """
 
     light_config = models.ForeignKey(LightConfig, on_delete=models.CASCADE)
@@ -143,8 +148,9 @@ class BlockOffEntity(models.Model):
 
 class BrightnessConfig(models.Model):
     """
-    Represents a brightness configuration associated with a light configuration. It has a
-    brightness value (0-255), and a start time to apply the configuration.
+    Represents a brightness configuration associated with
+    a light configuration. It has a brightness value (0-255),
+    and a start time to apply the configuration.
     """
 
     light_config = models.ForeignKey(LightConfig, on_delete=models.CASCADE)
@@ -175,7 +181,8 @@ class BrightnessConfig(models.Model):
 
         if overlapping_configs.exists():
             raise ValidationError(
-                "Overlapping time period with an existing BrightnessConfig for the same light_config."
+                "Overlapping time period with an existing BrightnessConfig for the same"
+                " light_config."
             )
 
         super().save(*args, **kwargs)
